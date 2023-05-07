@@ -5,6 +5,7 @@ let CashIn = [];
 let CashOut = [];
 let data = {
     transações: []
+
 }
 
 document.getElementById("button-logout").addEventListener("click", logout);
@@ -12,13 +13,13 @@ document.getElementById("transações-button").addEventListener("click",function
     window.location.href = "transações.html";
 
 })
-//adicionar lançamento
 
+//adicionar lançamento
 document.getElementById("transações-form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const value = parseFloat(document.getElementById("value-input").value);
-    const description = document.getElementById("description-input").value;
+    const description = document.getElementById("description-input");
     const date = document.getElementById("date-input").value;
     const type = document.querySelector('input[name="type-input"]:checked').value;
 
@@ -32,7 +33,10 @@ document.getElementById("transações-form").addEventListener("submit", function
 
     getCashIn();
     getCashOut();
-    alert("lançamento adicionado com sucesso.")
+    getTotal();
+
+    alert("Lançamento adicionado com sucesso");
+
 });
 
 
@@ -53,7 +57,7 @@ function checkLogged() {
     if(dataUser) {
         data = JSON.parse(dataUser);
     }
-
+    
     getCashIn();
     getCashOut();
     getTotal();
@@ -68,77 +72,77 @@ function logout() {
 
 function getCashIn() {
     const transações = data.transações;
-    const CashIn = transações.filter((item) => item.type === "1")
 
-    if(CashIn.length) {
+    const CashIn = transações.filter((item) => item.type === "1");
+
+    if (CashIn.length) {
         let CashInHtml = ``;
         let limit = 0;
 
-        if(CashIn.length >5) {
+        if (CashIn.length > 5) {
             limit = 5;
         } else {
-
-          limit (CashIn.length);
+            limit = CashIn.length;
         }
 
         for (let index = 0; index < limit; index++) {
-            CashInHtml +=
+            CashInHtml += `
             <div class="row mb-4">
                 <div class="col-12">
-                    <h3 class="fs-2"> ${cashIn[index].value.toFixed(2)}</h3>
+                    <h3 class="fs-2">${CashIn[index].value.toFixed(2)}</h3>
                     <div class="container p-0">
                         <div class="row">
                             <div class="col-12 col-md-8">
-                                <p>${cashIn[index].description}</p>
+                                <p>${CashIn[index].description}</p>
                             </div>
-                            <div class="col-12 col-md-6 d-flex justify-content-end">
-                                ${cashIn[index].date}
+                            <div class="col-12 col-md-3 d-flex justify-content-end">
+                                ${CashIn[index].date}
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-            </div>
+            </div>`;
         }
-        document.getElementById("cash-in-list").innerHTML = CashInHtml;
 
+        document.getElementById("cash-in-list").innerHTML = CashInHtml;
     }
 }
 
 function getCashOut() {
     const transações = data.transações;
-    const CashIn = transações.filter((item) => item.type === "2")
 
-    if(CashIn.length) {
-        let CashInHtml = ``;
+    const CashOut = transações.filter((item) => item.type === "2");
+
+    if (CashOut.length) {
+        let CashOutHtml = ``;
         let limit = 0;
 
-        if(CashIn.length >5) {
+        if (CashOut.length > 5) {
             limit = 5;
         } else {
-
-          limit (CashIn.length);
+            limit = CashOut.length;
         }
 
         for (let index = 0; index < limit; index++) {
-            CashInHtml +=
+            CashOutHtml += `
             <div class="row mb-4">
                 <div class="col-12">
-                    <h3 class="fs-2"> ${cashIn[index].value.toFixed(2)}</h3>
+                    <h3 class="fs-2">${CashOut[index].value.toFixed(2)}</h3>
                     <div class="container p-0">
                         <div class="row">
                             <div class="col-12 col-md-8">
-                                <p>${cashIn[index].description}</p>
+                                <p>${CashOut[index].description}</p>
                             </div>
-                            <div class="col-12 col-md-6 d-flex justify-content-end">
-                                ${cashIn[index].date}
+                            <div class="col-12 col-md-3 d-flex justify-content-end">
+                                ${CashOut[index].date}
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-            </div>
+            </div>`;
         }
-        document.getElementById("cash-out-list").innerHTML = CashInHtml;
 
+        document.getElementById("cash-out-list").innerHTML = CashOutHtml;
     }
 }
 

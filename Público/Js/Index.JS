@@ -1,20 +1,52 @@
+const myModal = new bootstrap.Modal("#exampleModal");
+let logged = sessionStorage.getItem("logged");
+const session = localStorage.getItem("session");
+
+checkLogged()
+
+//logar sistema
+document.getElementById("login-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email-input").value;
+    const senha = document.getElementById("senha-input").value;
+    const checkSession = document.getElementById("session-input").checked;
+
+    const account = getAccount(email);
+
+
+    if(!account) {
+        alert("Opps! Verifique o usuário ou a senha.");
+        return;
+    }
+
+    if(account) {
+        if(account.senha !== senha) {
+            alert("Ops!Verifique o usuário ou senha corretos");
+            return;
+
+        }
+
+        saveSession(email, checkSession);
+
+        window.location.href = "home.html";
+    }
+    
+});
 
 //criar conta
+document.getElementById("create-form").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-document.getElementById("link-conta").addEventListener("click", function() {
-    alert("O usuário clicou no link criar conta.");
+    const email = document.getElementById("executor").value;
+    const senha = document.getElementById("execução").value;
 
-    const email = get.documentById("executor").value;
-    const senha = get.documentById("execução").value;
-
-    console.log(email, senha);
-
-    if(email.length <50) {
+    if(email.length <5) {
         alert("Opps! Preencha o campo com um e-mail válido.");
         return;
     }
 
-    if(senha.length <50) {
+    if(senha.length <5) {
         alert("Preencha a senha com no mínimo 4 digitos.");
         return;
     }
@@ -28,8 +60,9 @@ document.getElementById("link-conta").addEventListener("click", function() {
 
     myModal.hide();
 
-    alert("Conta criada com sucesso.");
+    alert("Conta criada com sucesso")
 })
+
 
 function checkLogged() {
     if(session){
@@ -42,7 +75,6 @@ function checkLogged() {
         window.location.href = "home.html";
     }
 }
-
 
 function saveAccount(data) {
     localStorage.setItem(data.login, JSON.stringify(data))
@@ -68,33 +100,8 @@ function getAccount(key) {
 }
 
 
-const myModal = new bootstrap.Modal("#register-modal")
-let logged = sessionStorage.getItem("logged");
-const session = localStorage.getItem("session");
-//logar no sistema
-document.getElementById("login-form").addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const email = document.getElementById("executor").value;
-    const senha = document.getElementById("execução").value;
-    const checkSession = document.getElementById("session-input").checked;
 
-    const account = getAccount(email);
 
-    if(!account) {
-        alert("Opps! Verifique o usuário ou a senha.");
-        return;
-    }
 
-    if(account) {
-        if(account.senha !== senha) {
-            alert("Ops!Verifique o usuário ou senha corretos");
-            return;
 
-        }
-
-        saveSession(email, checkSession);
-    }
-
-        window.location.href = "home.html";
-});

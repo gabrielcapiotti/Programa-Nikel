@@ -10,7 +10,7 @@ let data = {
 document.getElementById("button-logout").addEventListener("click", logout);
 
 //adicionar lançamento
-document.getElementById("Transações-form").addEventListener("submit", function(e) {
+document.getElementById("transações-form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const value = parseFloat(document.getElementById("value-input").value);
@@ -41,7 +41,7 @@ function checkLogged() {
     }
 
     if(!logged) {
-        window.location.href = "testeIndex.html";
+        window.location.href = "index.html";
         return;
     }
 
@@ -59,7 +59,7 @@ function logout() {
     sessionStorage.removeItem("logged");
     localStorage.removeItem("session");
 
-    window.location.href = "testeIndex.html";
+    window.location.href = "index.html";
 }
 
 function getTransações() {
