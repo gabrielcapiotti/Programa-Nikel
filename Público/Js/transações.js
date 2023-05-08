@@ -49,7 +49,7 @@ function checkLogged() {
     if(dataUser) {
         data = JSON.parse(dataUser);
     }
-    
+
     getTransações();
 }
 
@@ -85,7 +85,7 @@ function getTransações() {
             </tr>                     
             `
         })
-            
+
     }
         document.getElementById("transações-list").innerHTML = transaçõesHtml;
 }

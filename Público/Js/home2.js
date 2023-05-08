@@ -57,7 +57,7 @@ function checkLogged() {
     if(dataUser) {
         data = JSON.parse(dataUser);
     }
-    
+
     getCashIn();
     getCashOut();
     getTotal();
